@@ -48,4 +48,12 @@
         android:text="@string/reset"
         />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/interruption"
+        android:checked="false"/>
+
 </LinearLayout>

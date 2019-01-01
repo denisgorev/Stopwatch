@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -12,12 +13,51 @@ public class StopwatchActivity extends Activity {
 
     private int mseconds = 0; //секунды для секундомера
     private boolean running; //флаг работы секундомера
+    CheckBox checkBox;
+    private boolean wasRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
+        if (savedInstanceState != null){
+            mseconds = savedInstanceState.getInt("mseconds"); //восстановление состояния активности
+            running = savedInstanceState.getBoolean("running");
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
+        }
         runTimer();
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) { //сохранение состояния переменных
+        savedInstanceState.putInt("mseconds", mseconds);
+        savedInstanceState.putBoolean("running", running);
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
+    }
+
+    @Override
+    protected void onStop() {
+
+            super.onStop();
+        if (checkBox.isChecked()) {
+            wasRunning = running;
+            running = false;
+        }
+
+    }
+
+    @Override
+    protected void onStart() {
+
+            super.onStart();
+        if (checkBox.isChecked()) {
+            if (wasRunning) {
+                running = true;
+            }
+        }
     }
 
     public void onClickStart(View view) {
