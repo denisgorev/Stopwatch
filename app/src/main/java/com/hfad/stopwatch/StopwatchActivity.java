@@ -39,9 +39,9 @@ public class StopwatchActivity extends Activity {
     }
 
     @Override
-    protected void onStop() {
+    protected void onPause() {
 
-            super.onStop();
+            super.onPause();
         if (checkBox.isChecked()) {
             wasRunning = running;
             running = false;
@@ -50,9 +50,9 @@ public class StopwatchActivity extends Activity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onResume() {
 
-            super.onStart();
+            super.onResume();
         if (checkBox.isChecked()) {
             if (wasRunning) {
                 running = true;
